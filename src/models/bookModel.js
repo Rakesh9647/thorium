@@ -10,22 +10,13 @@ const bookSchema = new mongoose.Schema( {
         indianPrice: String,
         europePrice: String,
     },
-    sales: {type: Number, default: 10}
+    year:{
+        type:Number,
+        default:2021,
+    },
+    totalPages:Number,
+    stokAvailable:Boolean
 }, { timestamps: true });
 
 
-module.exports = mongoose.model('Book', bookSchema) //users
-
-//Validation:
-//require:true
-//unique
-// default
-
-//String
-//Number
-//Date
-//Boolean
-// Arrays
-// Object
-// ObjectId
-// Buffer - not cover
+module.exports = mongoose.model('Bookslibrary', bookSchema) 
