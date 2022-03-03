@@ -19,4 +19,12 @@ router.post("/createBook", bookController.createBook)
 
 router.get("/getBooks", bookController.getBooks)
 
+//problem 5
+
+router.put('/book', bookController.book);
+
+router.put('/increasePrice', bookController.increasePrice);
+
+//
+
 module.exports = router;

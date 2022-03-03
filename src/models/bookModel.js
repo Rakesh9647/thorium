@@ -6,7 +6,14 @@ const bookSchema = new mongoose.Schema( {
 	author: {type: ObjectId, ref: "NewAuthor"},
 	price: Number,
     ratings: Number,
-	publisher: {type: ObjectId, ref: "NewPublisher"}
+	publisher: {type: ObjectId, ref: "NewPublisher"},
+	//problem5
+	isHardCover:{
+		type:Boolean,
+		default: false
+
+	}
+	//
 }, { timestamps: true });
 
 
