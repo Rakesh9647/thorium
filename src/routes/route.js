@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const userController= require("../controllers/userController")
+const userController= require("../controllers/userController");
+const loginController =require("../controllers/loginController");
+const getController=require("../controllers/getController");
+const updateController=require("../controllers/updateController");
+const deleteController=require("../controllers/deleteController");
+const postsController=require("../controllers/postsController");
 const middleware = require('../middleware/auth');
 
 router.get("/test-me", function (req, res) {
@@ -10,13 +15,15 @@ router.get("/test-me", function (req, res) {
 
 router.post("/users", userController.createUser)
 
-router.post("/login", userController.loginUser)
+router.post("/login", loginController.loginUser)
 
 //The userId is sent by front end
-router.get("/users/:userId",middleware.auth, userController.getUserData)
+router.get("/users/:userId",middleware.auth, getController.getUserData)
 
-router.put("/users/:userId",middleware.auth, userController.updateUser)
+router.post("/users/:userId/posts",middleware.auth, postsController.postMessage)
 
-router.delete('/users/:userId', middleware.auth, userController.userDelete);
+router.put("/users/:userId",middleware.auth , updateController.updateUser)
+
+router.delete('/users/:userId', middleware.auth, deleteController.userDelete);
 
 module.exports = router;

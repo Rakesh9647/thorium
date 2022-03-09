@@ -20,7 +20,8 @@ const userSchema = new mongoose.Schema( {
         type : Boolean,
         default :false
     },
-    age : Number
+    age : Number,
+    msg:String
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema)
