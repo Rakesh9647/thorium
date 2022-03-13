@@ -1,85 +1,101 @@
-let axios = require("axios")
+const axios = require('axios'); 
 
-
-let getStates = async function (req, res) {
-
-    try {
-        let options = {
-            method: 'get',
+const getStates = async (request, response)=>{
+    try{
+        const option = {
+            method: 'get', 
             url: 'https://cdn-api.co-vin.in/api/v2/admin/location/states'
         }
-        let result = await axios(options);
-        console.log(result)
-        let data = result.data
-        res.status(200).send({ msg: data, status: true })
-    }
-    catch (err) {
-        console.log(err)
-        res.status(500).send({ msg: err.message })
+        const dataRes = await axios(option); 
+        response.status(200).send({
+            'data': dataRes.data
+        }); 
+    }catch(error){
+        response.status(500).send({
+            'Error :': error.message
+        }); 
     }
 }
 
-
-let getDistricts = async function (req, res) {
-    try {
-        let id = req.params.stateId
-        let options = {
-            method: "get",
-            url: `https://cdn-api.co-vin.in/api/v2/admin/location/districts/${id}`
+const getDistrict = async(request, response)=>{
+    try{
+        const id = request.params.stateId; 
+        const option = {
+            method: 'get',
+            url: `https://cdn-api.co-vin.in/api/v2/admin/location/districts/${id}`,
         }
-        let result = await axios(options);
-        console.log(result)
-        let data = result.data
-        res.status(200).send({ msg: data, status: true })
-    }
-    catch (err) {
-        console.log(err)
-        res.status(500).send({ msg: err.message })
+        const dataRes = await axios(option); 
+        response.status(200).send({
+            'data': dataRes.data
+        }); 
+    }catch(error){
+        response.status(500).send({
+            'Error :': error.message
+        }); 
     }
 }
 
-let getByPin = async function (req, res) {
-    try {
-        let pin = req.query.pincode
-        let date = req.query.date
-        console.log(`query params are: ${pin} ${date}`)
-        var options = {
-            method: "get",
-            url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${pin}&date=${date}`
+const getAppointment = async (request, response)=>{
+    try{
+        const pincode = request.query.pincode; 
+        const date = request.query.date; 
+        const option = {
+            method: 'get',
+            url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${pincode}&date=${date}`
         }
-        let result = await axios(options)
-        console.log(result.data)
-        res.status(200).send({ msg: result.data })
-    }
-    catch (err) {
-        console.log(err)
-        res.status(500).send({ msg: err.message })
+        const dataRes = await axios(option); 
+        response.status(200).send({
+            'data': dataRes.data
+        }); 
+    }catch(error){
+        response.status(500).send({
+            'Error :': error.message
+        });
     }
 }
 
-let getOtp = async function (req, res) {
-    try {
-        let blahhh = req.body
-        
-        console.log(`body is : ${blahhh} `)
-        var options = {
-            method: "post",
-            url: `https://cdn-api.co-vin.in/api/v2/auth/public/generateOTP`,
-            data: blahhh
+const getOtp = async(request, response)=>{
+    try{
+        const mobile = request.body; 
+        const option = {
+            method: 'post',
+            url: 'https://cdn-api.co-vin.in/api/v2/auth/public/generateOTP',
+            data: mobile
         }
-
-        let result = await axios(options)
-        console.log(result.data)
-        res.status(200).send({ msg: result.data })
-    }
-    catch (err) {
-        console.log(err)
-        res.status(500).send({ msg: err.message })
+        const dataRes = await axios(option); 
+        response.status(200).send({
+            'data': datdataRes.a
+        }); 
+    }catch(error){
+        response.status(500).send({
+            'Error :': error.message
+        });
     }
 }
 
+const getAppointmentByDistrict = async (request, response)=>{
+    try{
+        const districtId = request.query.districtId; 
+        const date = request.query.date; 
+        const option = {
+            method: 'get',
+            url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${districtId}&date=${date}`
+        }
+        const dataRes = await axios(option); 
+        response.status(200).send({
+            'data': dataRes.data
+        }); 
+    }catch(error){
+        response.status(500).send({
+            'Error :': error.message
+        });
+    }
+}
 
-module.exports.getStates = getStates
-module.exports.getDistricts = getDistricts
-module.exports.getByPin = getByPin
-module.exports.getOtp = getOtp
+module.exports = {
+    getStates: getStates,
+    getDistrict: getDistrict,
+    getAppointment: getAppointment,
+    getOtp: getOtp,
+    getAppointmentByDistrict: getAppointmentByDistrict
+}
